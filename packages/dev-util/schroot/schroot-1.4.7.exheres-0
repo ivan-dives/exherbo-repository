@@ -66,12 +66,11 @@ src_prepare() {
 src_install() {
     default
     
-    # config dir
-    keepdir /etc/schroot/chroot.d
-    # state dir
-    keepdir /var/lib/schroot/mount
-    keepdir /var/lib/schroot/session
-    keepdir /var/lib/schroot/unpack
-    keepdir /var/lib/schroot/union/overlay
-    keepdir /var/lib/schroot/union/underlay
+    keepdir \
+        /etc/schroot/chroot.d \
+        /var/lib/schroot/mount \
+        /var/lib/schroot/session \
+        /var/lib/schroot/unpack \
+        /var/lib/schroot/union/overlay \
+        /var/lib/schroot/union/underlay
 }
