@@ -33,10 +33,6 @@ DEPENDENCIES="
 # Tests require root
 RESTRICT="test"
 
-DEFAULT_SRC_PREPARE_PATCHES=(
-    -p1 "${FILES}/${PNV}-fix-gcc-4.5.0.patch"
-)
-
 DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=(
     'btrfs btrfs-snapshot'
     'doc doxygen'
@@ -45,6 +41,7 @@ DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=(
 )
 
 DEFAULT_SRC_CONFIGURE_PARAMS=(
+    --disable-doxygen
     --disable-static
     --enable-block-device
     --enable-csbuild
@@ -65,7 +62,7 @@ src_prepare() {
 
 src_install() {
     default
-    
+
     keepdir \
         /etc/schroot/chroot.d \
         /var/lib/schroot/mount \
@@ -74,3 +71,4 @@ src_install() {
         /var/lib/schroot/union/overlay \
         /var/lib/schroot/union/underlay
 }
+
