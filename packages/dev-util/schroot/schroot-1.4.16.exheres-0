@@ -4,7 +4,7 @@
 #     Copyright 1999-2010 Gentoo Foundation
 
 # TODO: fix issues with automake
-require debian-upstream [ suffix=".orig.tar.gz" ] autotools [ supported_automake=[ none ] supported_autoconf=[ 2.5 ] ]
+require debian-upstream [ suffix=".orig.tar.bz2" ] autotools [ supported_automake=[ none ] supported_autoconf=[ 2.5 ] ]
 
 SUMMARY="Utility to execute commands in a chroot environment"
 HOMEPAGE="http://packages.debian.org/source/sid/schroot"
