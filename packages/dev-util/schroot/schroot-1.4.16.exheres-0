@@ -19,7 +19,7 @@ DEPENDENCIES="
         dev-cpp/cppunit[>=1.10.0]
         dev-libs/boost[>=1.42.0]
         dev-libs/lockdev
-        sys-apps/util-linux-ng[>=2.16]
+        sys-apps/util-linux[>=2.16]
         sys-devel/gettext
         btrfs? ( sys-fs/btrfs-progs )
         doc? (
