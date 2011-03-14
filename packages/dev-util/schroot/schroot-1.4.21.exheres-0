@@ -3,8 +3,7 @@
 # Based in part upon 'schroot-1.4.3' from Gentoo, which is:
 #     Copyright 1999-2010 Gentoo Foundation
 
-# TODO: fix issues with automake
-require debian-upstream [ suffix=".orig.tar.bz2" ] autotools [ supported_automake=[ none ] supported_autoconf=[ 2.5 ] ]
+require debian-upstream [ suffix=".orig.tar.bz2" ]
 
 SUMMARY="Utility to execute commands in a chroot environment"
 HOMEPAGE="http://packages.debian.org/source/sid/schroot"
@@ -12,7 +11,7 @@ HOMEPAGE="http://packages.debian.org/source/sid/schroot"
 LICENCES="GPL-3"
 SLOT="0"
 PLATFORMS="~amd64"
-MYOPTIONS="lvm btrfs doc pam"
+MYOPTIONS="lvm btrfs doc"
 
 DEPENDENCIES="
     build+run:
@@ -21,13 +20,13 @@ DEPENDENCIES="
         dev-libs/lockdev
         sys-apps/util-linux[>=2.16]
         sys-devel/gettext
+        sys-libs/pam
         btrfs? ( sys-fs/btrfs-progs )
         doc? (
             app-doc/doxygen
             media-gfx/graphviz
         )
         lvm? ( sys-fs/lvm2 )
-        pam? ( sys-libs/pam )
 "
 
 # Tests require root
@@ -37,7 +36,6 @@ DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=(
     'btrfs btrfs-snapshot'
     'doc doxygen'
     'lvm lvm-snapshot'
-    pam
 )
 
 DEFAULT_SRC_CONFIGURE_PARAMS=(
@@ -48,17 +46,13 @@ DEFAULT_SRC_CONFIGURE_PARAMS=(
     --enable-dchroot
     --enable-dchroot-dsa
     --enable-loopback
+    --enable-pam
     --enable-shared
     --enable-union
     --enable-uuid
     --localstatedir=/var
     --with-bash-completion-dir=/usr/share/bash-completion
 )
-
-src_prepare() {
-    default
-    eautoconf
-}
 
 src_install() {
     default
