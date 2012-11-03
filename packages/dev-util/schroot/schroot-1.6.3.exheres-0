@@ -59,7 +59,7 @@ src_install() {
 
     # the upstream pam.d file includes some debian pam.d files
     edo rm "${IMAGE}"/etc/pam.d/schroot
-    pamd_mimic_system schroot auth account session
+    pamd_mimic_system schroot auth auth account session
 
     keepdir \
         /etc/schroot/chroot.d \
