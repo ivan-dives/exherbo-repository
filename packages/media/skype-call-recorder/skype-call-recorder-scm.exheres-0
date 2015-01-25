@@ -1,0 +1,22 @@
+# Copyright 2015 Ivan Diorditsa <ivan.diorditsa@gmail.com>
+# Distributed under the terms of the GNU General Public License v2
+
+require github [ user=jlherren ] cmake [ api=2 ]
+
+SUMMARY="Record Skype calls to mp3/pcm/vorbis files."
+HOMEPAGE="http://atdot.ch/scr/"
+
+LICENCES="GPL-2"
+SLOT="0"
+PLATFORMS="~amd64"
+
+DEPENDENCIES="
+    build+run:
+        media-libs/id3lib
+        media-libs/libvorbis
+        media-sound/lame
+        x11-libs/qt:4[>=4.3][dbus]
+    run:
+        net-im/skype
+"
+
