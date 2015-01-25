@@ -1,17 +1,15 @@
-# Copyright 2010 Timothy Redaelli <timothy@redaelli.eu>                
+# Copyright 2010 Timothy Redaelli <timothy@redaelli.eu>
 # Distributed under the terms of the GNU General Public License v2 
 
 SUMMARY="free x/y/zmodem implementation"
 
-HOMEPAGE="http://www.ohse.de/uwe/software/lrzsz.html"
+HOMEPAGE="http://www.ohse.de/uwe/software/${PN}.html"
 DOWNLOADS="http://www.ohse.de/uwe/releases/${PNV}.tar.gz"
 
 LICENCES="GPL-2"
 SLOT="0"
-PLATFORMS="~x86"
-MYOPTIONS=""
+PLATFORMS="~amd64 ~x86"
 
-DEPENDENCIES=""
 DEFAULT_SRC_CONFIGURE_PARAMS=( --hates=docdir )
 
 RESTRICT=test   #FIXME sydbox
