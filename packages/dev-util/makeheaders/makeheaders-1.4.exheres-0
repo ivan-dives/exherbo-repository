@@ -1,0 +1,32 @@
+# Copyright 2015 Ivan Diorditsa <ivan.diorditsa@gmail.com>
+# Distributed under the terms of the GNU General Public License v2
+
+FETCHEDNAME="makeheaders.c"
+require checksums [ sha1=[ ${FETCHEDNAME}=6d58c6d765c30ee7f2861fcada9b74a3af51d6a9 ] ]
+
+SUMMARY="Automatically generate .h files from .c or .cpp files."
+DESCRIPTION="
+The makeheaders program is a simple utility that will automatically generate all the .h files
+for large programming project based on information gleaned from the .c or .cpp source files.
+"
+
+HOMEPAGE="http://www.hwaci.com/sw/mkhdr"
+UPSTREAM_DOCUMENTATION="${HOMEPAGE}/${PN}.html"
+DOWNLOADS="${HOMEPAGE}/${FETCHEDNAME}"
+
+LICENCES="BSD-2"
+SLOT="0"
+PLATFORMS="~amd64"
+
+src_unpack() {
+    edo install -D "${FETCHEDDIR}"/${FETCHEDNAME} "${WORK}"/${FETCHEDNAME}
+}
+
+src_compile() {
+    emake ${PN}
+}
+
+src_install() {
+    edo install -D ${PN} "${IMAGE}"/usr/bin/${PN}
+}
+
