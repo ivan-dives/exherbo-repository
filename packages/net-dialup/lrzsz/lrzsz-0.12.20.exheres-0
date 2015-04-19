@@ -10,7 +10,8 @@ LICENCES="GPL-2"
 SLOT="0"
 PLATFORMS="~amd64 ~x86"
 
-DEFAULT_SRC_CONFIGURE_PARAMS=( --hates=docdir )
+DEFAULT_SRC_CONFIGURE_PARAMS=( '--hates=datarootdir docdir' )
+DEFAULT_SRC_COMPILE_PARAMS=( AR=${AR} )
 
 RESTRICT=test   #FIXME sydbox
 
@@ -27,11 +28,11 @@ src_install() {
 
     local x
     for x in rb rx rz sb sx sz; do
-        dosym l${x} /usr/bin/${x}
+        dosym l${x} /usr/$(exhost --target)/bin/${x}
         dosym l${x:0:1}z.1 /usr/share/man/man1/${x}.1
         if [[ "${x}" != *z ]]; then
             dosym l${x:0:1}z.1 /usr/share/man/man1/l${x}.1
-            dosym l${x:0:1}z /usr/bin/l${x}
+            dosym l${x:0:1}z /usr/$(exhost --target)/bin/l${x}
         fi
     done
 }
