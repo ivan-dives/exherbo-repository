@@ -27,6 +27,6 @@ src_compile() {
 }
 
 src_install() {
-    edo install -D ${PN} "${IMAGE}"/usr/bin/${PN}
+    edo install -D ${PN} "${IMAGE}"/usr/$(exhost --target)/bin/${PN}
 }
 
