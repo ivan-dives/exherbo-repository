@@ -10,12 +10,8 @@ LICENCES="GPL-2"
 SLOT="0"
 PLATFORMS="~amd64"
 
-src_install() {
-    MY_PARAMS=(
-        LIBDIR="${IMAGE}"/usr/$(exhost --target)/lib
-        PREFIX="${IMAGE}"/usr/$(exhost --target)
-    )
-
-    emake install "${MY_PARAMS[@]}"
-}
+DEFAULT_SRC_INSTALL_PARAMS=(
+    LIBDIR=/usr/$(exhost --target)/lib
+    PREFIX=/usr/$(exhost --target)
+)
 
