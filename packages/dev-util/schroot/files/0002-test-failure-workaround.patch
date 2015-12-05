@@ -1,0 +1,22 @@
+From 5cb13bccd40da9ec30a1adebda778bf52edcb316 Mon Sep 17 00:00:00 2001
+From: Ivan Diorditsa <ivan.diorditsa@gmail.com>
+Date: Sun, 6 Dec 2015 00:01:49 +0200
+Subject: [PATCH 2/2] test/ failure workaround
+
+---
+ test/CMakeLists.txt | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
+index f55a5f8..ed84121 100644
+--- a/test/CMakeLists.txt
++++ b/test/CMakeLists.txt
+@@ -33,5 +33,3 @@ if (BUILD_TESTS)
+            COMMAND ${CMAKE_CURRENT_BINARY_DIR}/setup-test-data)
+ endif (BUILD_TESTS)
+ 
+-add_subdirectory(schroot)
+-add_subdirectory(bin-common)
+-- 
+2.5.0
+

@@ -1,0 +1,76 @@
+# Copyright 2015 Ivan Diorditsa <ivan.diorditsa@gmail.com>
+# Copyright 2010 Johannes Nixdorf <mixi@user-helfen-usern.de>
+# Based in part upon 'schroot-1.4.3' from Gentoo, which is:
+#     Copyright 1999-2010 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+MY_USER="codelibre-net"
+
+require github [ user=${MY_USER} ]
+
+if ! ever is_scm; then
+    DOWNLOADS=
+    SCM_REPOSITORY="https://github.com/${MY_USER}/${PN}"
+    SCM_REVISION="12fa897632dff1eba95cb1e7b5cbafc9a8f804c7"
+    require scm-git
+fi
+
+require pam cmake [ api=2 ]
+
+SUMMARY="Securely enter a chroot and run a command or login shell"
+
+LICENCES="GPL-3"
+SLOT="0"
+MYOPTIONS="btrfs doc"
+
+DEPENDENCIES="
+    build:
+        app-text/po4a
+        sys-apps/groff
+        sys-devel/cmake[>=3.2.0]
+    build+run:
+        dev-libs/boost[>=1.54]
+        sys-devel/gettext[>=0.16]
+        sys-libs/pam[>=1.1.8]
+        btrfs? ( sys-fs/btrfs-progs )
+        doc? (
+            app-doc/doxygen[dot]
+        )
+"
+
+DEFAULT_SRC_PREPARE_PATCHES=(
+    "${FILES}"/0001-bashcompdir.patch
+    "${FILES}"/0002-test-failure-workaround.patch
+)
+
+CMAKE_SRC_CONFIGURE_PARAMS=(
+    -DCMAKE_INSTALL_LOCALSTATEDIR=/var
+    -DCMAKE_INSTALL_SYSCONFDIR=/etc
+
+#    -Dtest:BOOL=FALSE
+)
+
+CMAKE_SRC_CONFIGURE_OPTIONS=(
+    "btrfs btrfs-snapshot"
+    "doc doxygen"
+)
+
+# Tests require root
+RESTRICT="test"
+
+src_install() {
+    cmake_src_install
+
+    # the upstream pam.d file includes some debian pam.d files
+    edo rm "${IMAGE}"/etc/pam.d/schroot
+    pamd_mimic_system schroot auth auth account session
+
+    keepdir \
+        /etc/schroot/chroot.d \
+        /var/lib/schroot/mount \
+        /var/lib/schroot/session \
+        /var/lib/schroot/unpack \
+        /var/lib/schroot/union/overlay \
+        /var/lib/schroot/union/underlay
+}
+

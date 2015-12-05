@@ -1,0 +1,25 @@
+From 7cacd7214c30cc44690fe9696152b36faffdd3b4 Mon Sep 17 00:00:00 2001
+From: Ivan Diorditsa <ivan.diorditsa@gmail.com>
+Date: Sat, 5 Dec 2015 23:59:47 +0200
+Subject: [PATCH 1/2] bashcompdir
+
+---
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 76d71f6..e020556 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -98,7 +98,7 @@ if(distributor STREQUAL Unknown)
+ endif(distributor STREQUAL Unknown)
+ 
+ # bash completion directory
+-set(bash_completion_dir "${CMAKE_INSTALL_SYSCONFDIR}/bash_completion.d"
++set(bash_completion_dir "${CMAKE_INSTALL_DATADIR}/bash-completion/completions"
+     CACHE PATH "bash shell completion directory")
+ #==> bashcompletiondir (use cache val directly)
+ 
+-- 
+2.5.0
+
