@@ -1,0 +1,32 @@
+# Copyright 2018 Ivan Diorditsa <ivan.diorditsa@gmail.com>
+# Distributed under the terms of the GNU General Public License v2
+
+require sourceforge
+export_exlib_phases src_prepare src_install
+
+SUMMARY="UDT SDK"
+DESCRIPTION="UDT is a high performance data transfer protocol - UDP-based data transfer protocol. It was designed for data intensive applications over high speed wide area networks, to overcome the efficiency and fairness problems of TCP. As its name indicates, UDT is built on top of UDP and it provides both reliable data streaming and messaging services."
+
+LICENCES="BSD-3"
+SLOT="0"
+MYOPTIONS=""
+
+DOWNLOADS="mirror://sourceforge/${PN}/${PN}/${PV}/${PN}.sdk.${PV}.tar.gz"
+
+WORK="${WORKBASE}/${PN}4"
+
+udt_src_prepare() {
+    edo sed -i -e "/^DIRS =/ s:app::" Makefile
+    edo sed -i src/Makefile \
+        -e "/^C++ =/d" \
+        -e 's:$(C++):$(CC):' \
+        -e 's:ar :$(AR) :'
+}
+
+udt_src_install() {
+    default_src_install
+
+    edo dolib src/libudt.{a,so}
+    edo insinto "$(IMAGE)"/usr/$(exhost --target)/include
+    edo doins src/udt.h
+}
