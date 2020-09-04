@@ -1,17 +1,39 @@
 # Copyright 2018 Ivan Diorditsa <ivan.diorditsa@gmail.com>
 # Distributed under the terms of the GNU General Public License v2
 
-require cmake [ api=2 ] github [ user=mozilla ]
+require cmake github [ user=mozilla ]
+require python [ blacklist=2 multibuild=false ]
+
+SUMMARY="A lightweight tool for recording, replaying and debugging execution of applications"
+
+HOMEPAGE="https://rr-project.org/ ${HOMEPAGE}"
 
 LICENCES="BSD-2 X11"
 SLOT="0"
 MYOPTIONS=""
 
 DEPENDENCIES="
+    build:
+        virtual/pkg-config
     build+run:
-        dev-python/pexpect[python_abis:2.7]
         dev-util/capnproto
+        python_abis:3.5? ( dev-python/pexpect[python_abis:3.5] )
+        python_abis:3.6? ( dev-python/pexpect[python_abis:3.6] )
+        python_abis:3.7? ( dev-python/pexpect[python_abis:3.7] )
+        python_abis:3.8? ( dev-python/pexpect[python_abis:3.8] )
+    test:
+        sys-devel/gdb
 "
+# NOTE: bundles brotli and blake2
+# https://github.com/mozilla/rr/issues/2435
 
-CMAKE_SRC_CONFIGURE_PARAMS=( -Ddisable32bit:BOOL=TRUE )
+# gdb doesn't work well under sydbox, e.g.:
+# "ptrace: Operation not permitted."
+RESTRICT="test"
+
+CMAKE_SRC_CONFIGURE_PARAMS=(
+    -Ddisable32bit:BOOL=TRUE
+    -DPYTHON_EXECUTABLE:FILEPATH=${PYTHON}
+)
+CMAKE_SRC_CONFIGURE_TESTS=( '-DBUILD_TESTS:BOOL=TRUE -DBUILD_TESTS:BOOL=FALSE' )
 
